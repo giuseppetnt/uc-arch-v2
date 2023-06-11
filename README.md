@@ -20,13 +20,13 @@
 before running script make executable with:
 
 ```
-chmod +x uc-arch-v2.sh
+chmod +x ucarch
 ```
 
 then:
 
 ```
-./uc-arch-v2.sh
+./ucarch
 ```
 
 ## Make a local installation:
@@ -48,7 +48,7 @@ makepkg -si
 
 - start with
 ```
-uc-arch-v2.sh
+ucarch
 ```
 
 ## TO DO LIST:
