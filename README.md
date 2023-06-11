@@ -47,6 +47,11 @@ makepkg -si
 uc-arch-v2.sh
 ```
 
+## TO DO LIST:
+- Debian based distro
+- Code optimization
+
+
 
 ### Sponsor
 
