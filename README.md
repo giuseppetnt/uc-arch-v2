@@ -47,8 +47,7 @@ ucarch
 
 ### Sponsor
 
-### Main sponsor
-
-![alt text](Blenderchannel.png)
+![alt text](/img/Blenderchannel.png)
 
 www.blenderchannel.it
+
