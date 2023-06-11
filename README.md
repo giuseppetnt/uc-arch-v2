@@ -11,6 +11,10 @@
 
 ![alt text](img1.png)
 
+![alt text](img3.png)
+
+![alt text](img2.png)
+
 ## Start without local installation:
 
 before running script make executable with:
