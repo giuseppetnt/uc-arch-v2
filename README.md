@@ -42,7 +42,7 @@ ucarch
 ## TO DO LIST:
 - Debian based utilities
 - Code optimization
-- Add for comparing package version
+- Add function for compairing package version
 
 
 
