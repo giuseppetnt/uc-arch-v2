@@ -40,8 +40,9 @@ ucarch
 ```
 
 ## TO DO LIST:
-- Debian based distro
+- Debian based utilities
 - Code optimization
+- Add for comparing package version
 
 
 
