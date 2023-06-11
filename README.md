@@ -1,5 +1,7 @@
 # uc-arch-v2
 
+### ucarc version 1.1.2
+
 ##### This bash script is a simple program that offers some functionalities for managing packages on a Linux arch-based system using the "pacman" package manager and the "yay" utility for AUR packages. 
 
 ##### Includes a function called "check_yay" that checks if the "yay" utility is installed on the system. If  is not, the user is prompted to install it and executes the `sudo pacman -S yay`. Also provides functions for updating pacman packages and AUR packages. 
