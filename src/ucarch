@@ -64,14 +64,15 @@ show_ascii_art
 
 # Mostra il menu principale
 while true; do
-  choice=$(whiptail --title "Menu principale" --menu "Scegli un'opzione:" 15 60 5 \
+  choice=$(whiptail --title "Menu principale" --menu "Scegli un'opzione:" 15 60 6 \
     "1" "Aggiornare Arch con pacman" \
     "2" "Aggiornare Arch con AUR" \
-    "3" "Ottimizzare il sistema" \
+    "3" "Mostra eventuali servizi in errore" \
     "4" "Visualizza pacchetti non necessari" \
     "5" "Cancellare pacchetti orfani" \
     "6" "Pulire la cache" \
-    "7" "Esci" 3>&1 1>&2 2>&3)
+    "7" "Mostra versione del pacchetto ucarch" \
+    "8" "Esci" 3>&1 1>&2 2>&3)
 
   case $choice in
     1)
@@ -88,19 +89,22 @@ while true; do
       if show_confirmation "Vuoi aggiornare Arch con AUR?"; then
         echo "Eseguendo l'aggiornamento con AUR..."
         # Comando per l'aggiornamento con AUR (utilizzare il gestore AUR preferito)
-        # Esempio: yay -Syu
+        sudo yay -Syu
         show_message "Aggiornamento con AUR completato con successo!"
       else
         show_message "Aggiornamento con AUR annullato."
       fi
       ;;
     3)
-      if show_confirmation "Vuoi ottimizzare il sistema?"; then
-        echo "Eseguendo l'ottimizzazione del sistema..."
-        # Comandi per ottimizzare il sistema
-        show_message "Ottimizzazione completata con successo!"
+      if show_confirmation "Genero il log..."; then
+        echo "Interrogazione di Systemctl"
+        # Systemctl
+        systemctl --failed > failed_services.txt
+        whiptail --title "Servizi in errore" --textbox failed_services.txt 20 80
+        rm failed_services.txt
+        show_message "Eseguito"
       else
-        show_message "Ottimizzazione annullata."
+        show_message "Operazione annullata."
       fi
       ;;
     4)
@@ -116,18 +120,17 @@ while true; do
         echo "Cancellazione dei pacchetti orfani..."
         # Comando per la rimozione dei pacchetti orfani con pacman
         orphans=$(pacman -Qdtq)
-    if [ -n "$orphans" ]; then
-        sudo pacman -Rns $orphans
-        echo "Pulizia completata!"
-    else
-        echo "Nessun pacchetto orfano da pulire."
-    fi
+        if [ -n "$orphans" ]; then
+            sudo pacman -Rns $orphans
+            echo "Pulizia completata!"
+        else
+            echo "Nessun pacchetto orfano da pulire."
+        fi
         show_message "Cancellazione completata con successo!"
       else
         show_message "Cancellazione dei pacchetti orfani annullata."
       fi
       ;;
-
     6)
       if show_confirmation "Vuoi pulire la cache?"; then
         echo "Pulizia della cache..."
@@ -139,6 +142,14 @@ while true; do
       fi
       ;;
     7)
+      package_version=$(pacman -Q ucarch 2>/dev/null | awk '{print $2}')
+      if [[ -n $package_version ]]; then
+        show_message "La versione del pacchetto ucarch è: $package_version"
+      else
+        show_message "Il pacchetto ucarch non è installato."
+      fi
+      ;;
+    8)
       echo "${green}Goodbye!${reset}"
       exit 0
       ;;
