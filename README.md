@@ -17,21 +17,7 @@
 
 ![alt text](/img/img2.png)
 
-## Start without local installation:
-
-before running script make executable with:
-
-```
-chmod +x ucarch
-```
-
-then:
-
-```
-./ucarch
-```
-
-## Make a local installation:
+## How to compile and install:
 
 - clone  repo
 ```
