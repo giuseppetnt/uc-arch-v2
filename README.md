@@ -5,7 +5,20 @@
 
 ![alt text](img1.png)
 
-### Sponsor:
+before running script make executable with:
+
+```
+chmod +x uc-arch-v2.sh
+```
+
+then:
+
+```
+./uc-arch-v2.sh
+```
+
+
+### Sponsor
 
 ### Main sponsor
 
