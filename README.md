@@ -1,6 +1,6 @@
 # uc-arch-v2
 
-### ucarc version 1.1.2
+### ucarc version 1.2.1
 
 ##### This bash script is a simple program that offers some functionalities for managing packages on a Linux arch-based system using the "pacman" package manager and the "yay" utility for AUR packages. 
 
@@ -11,11 +11,11 @@
 ##### The "clean_cache" function checks the cache size, if the size is not zero, it clean the cache. User can select an option by entering the corresponding number. In case of invalid input, an error message is displayed.
 
 
-![alt text](img1.png)
+![alt text](/img/img1.png)
 
-![alt text](img3.png)
+![alt text](/img/img3.png)
 
-![alt text](img2.png)
+![alt text](/img/img2.png)
 
 ## Start without local installation:
 

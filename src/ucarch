@@ -1,31 +1,30 @@
 #!/bin/bash
 
-# Funzione per mostrare un messaggio di conferma
+# Show confirmation message
 show_confirmation() {
   whiptail --title "Conferma" --yesno "$1" 10 60
   return $?
 }
 
-# Funzione per mostrare un messaggio di informazione
+# Show information message
 show_message() {
   whiptail --title "Informazione" --msgbox "$1" 10 60
 }
 
-# Funzione per ottenere una lista di pacchetti non necessari
+# Get the necessary packages
 get_unnecessary_packages() {
-  # Elenca tutti i pacchetti installati nel sistema
+  # list packages installed
   all_packages=$(pacman -Qqe)
 
-  # Pacchetti essenziali per il corretto funzionamento di Arch Linux
+  # Essential package for arch linux
   essential_packages=(
     "base"
     "linux"
     "pacman"
     "glibc"
-    # Aggiungi altri pacchetti essenziali se necessario
   )
 
-  # Trova i pacchetti non essenziali
+  # Search for orphaned packages
   unnecessary_packages=()
   for package in $all_packages; do
     if ! printf '%s\n' "${essential_packages[@]}" | grep -qx "$package"; then
@@ -33,13 +32,13 @@ get_unnecessary_packages() {
     fi
   done
 
-  # Restituisci la lista dei pacchetti non necessari
+  # List orphaned packages
   echo "${unnecessary_packages[@]}"
 }
 
-# Funzione per visualizzare l'ASCII art
+# Show ASCII art
 show_ascii_art() {
-  # Colori per l'ASCII art
+  # Color of ASCII art
   green=$(tput setaf 2)
   blue=$(tput setaf 4)
   reset=$(tput sgr0)
@@ -59,94 +58,94 @@ show_ascii_art() {
  echo
 }
 
-# Visualizza l'ASCII art all'inizio dello script
+# VShow ASCII art at the top of the script
 show_ascii_art
 
-# Mostra il menu principale
+# Show main menu
 while true; do
-  choice=$(whiptail --title "Menu principale" --menu "Scegli un'opzione:" 15 60 6 \
-    "1" "Aggiornare Arch con pacman" \
-    "2" "Aggiornare Arch con AUR" \
-    "3" "Mostra eventuali servizi in errore" \
-    "4" "Visualizza pacchetti non necessari" \
-    "5" "Cancellare pacchetti orfani" \
-    "6" "Pulire la cache" \
-    "7" "Mostra versione del pacchetto ucarch" \
-    "8" "Esci" 3>&1 1>&2 2>&3)
+  choice=$(whiptail --title "Main menu" --menu "Select an option:" 15 60 6 \
+    "1" "Pacman update" \
+    "2" "AUR update" \
+    "3" "Show failed services" \
+    "4" "Show orphaned package" \
+    "5" "Delete orphaned package" \
+    "6" "Clean cache" \
+    "7" "Software version" \
+    "8" "Exit" 3>&1 1>&2 2>&3)
 
   case $choice in
     1)
-      if show_confirmation "Vuoi aggiornare Arch con pacman?"; then
-        echo "Eseguendo l'aggiornamento con pacman..."
-        # Comando per l'aggiornamento con pacman
+      if show_confirmation "Update with pacman?"; then
+        echo "Updating..."
+        # pacman update
         sudo pacman -Syu
-        show_message "Aggiornamento completato con successo!"
+        show_message "Update done!"
       else
-        show_message "Aggiornamento annullato."
+        show_message "Canceling..."
       fi
       ;;
     2)
-      if show_confirmation "Vuoi aggiornare Arch con AUR?"; then
-        echo "Eseguendo l'aggiornamento con AUR..."
-        # Comando per l'aggiornamento con AUR (utilizzare il gestore AUR preferito)
+      if show_confirmation "Update AUR"; then
+        echo "Updating..."
+        # yay update
         sudo yay -Syu
-        show_message "Aggiornamento con AUR completato con successo!"
+        show_message "Update done!"
       else
-        show_message "Aggiornamento con AUR annullato."
+        show_message "Canceling..."
       fi
       ;;
     3)
-      if show_confirmation "Genero il log..."; then
-        echo "Interrogazione di Systemctl"
+      if show_confirmation "Writing the log file"; then
+        echo "Systemctl --failed"
         # Systemctl
         systemctl --failed > failed_services.txt
-        whiptail --title "Servizi in errore" --textbox failed_services.txt 20 80
+        whiptail --title "Failed services" --textbox failed_services.txt 20 80
         rm failed_services.txt
-        show_message "Eseguito"
+        show_message "Done!"
       else
-        show_message "Operazione annullata."
+        show_message "Canceling..."
       fi
       ;;
     4)
       unnecessary_packages_list=$(get_unnecessary_packages)
       if [ -n "$unnecessary_packages_list" ]; then
-        show_message "Ecco la lista dei pacchetti non necessari:\n\n$unnecessary_packages_list"
+        show_message "List of orphaned package:\n\n$unnecessary_packages_list"
       else
-        show_message "Non sono presenti pacchetti non necessari nel sistema."
+        show_message "No oprhaned package."
       fi
       ;;
     5)
-      if show_confirmation "Vuoi cancellare i pacchetti orfani?"; then
-        echo "Cancellazione dei pacchetti orfani..."
-        # Comando per la rimozione dei pacchetti orfani con pacman
+      if show_confirmation "Delete oprhaned package?"; then
+        echo "Deleting orphaned packages..."
+        # remove orphaned
         orphans=$(pacman -Qdtq)
         if [ -n "$orphans" ]; then
             sudo pacman -Rns $orphans
-            echo "Pulizia completata!"
+            echo "Cleaning done!"
         else
-            echo "Nessun pacchetto orfano da pulire."
+            echo "No oprhaned package."
         fi
-        show_message "Cancellazione completata con successo!"
+        show_message "Deleting done."
       else
-        show_message "Cancellazione dei pacchetti orfani annullata."
+        show_message "No action."
       fi
       ;;
     6)
-      if show_confirmation "Vuoi pulire la cache?"; then
-        echo "Pulizia della cache..."
-        # Comandi per pulire la cache
+      if show_confirmation "Clean cache?"; then
+        echo "Cache cleaning..."
+        # Cache cleaning
         sudo pacman -Sc
-        show_message "Pulizia della cache completata con successo!"
+        show_message "Cache cleaning succeded!"
       else
-        show_message "Pulizia della cache annullata."
+        show_message "Canceling..."
       fi
       ;;
     7)
       package_version=$(pacman -Q ucarch 2>/dev/null | awk '{print $2}')
       if [[ -n $package_version ]]; then
-        show_message "La versione del pacchetto ucarch è: $package_version"
+        show_message "ucarch version: $package_version"
       else
-        show_message "Il pacchetto ucarch non è installato."
+        show_message "ucarch not installed"
       fi
       ;;
     8)
@@ -154,7 +153,7 @@ while true; do
       exit 0
       ;;
     *)
-      show_message "Opzione non valida. Riprova."
+      show_message "Not a valid option. Retry"
       ;;
   esac
 done

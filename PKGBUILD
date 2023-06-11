@@ -1,6 +1,6 @@
 pkgname=ucarch
-pkgver=1.1
-pkgrel=2
+pkgver=1.2
+pkgrel=1
 pkgdesc="System updater and orphaned cleaner"
 arch=('any')
 license=('GPL')
