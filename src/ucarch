@@ -2,13 +2,13 @@
 
 # Show confirmation message
 show_confirmation() {
-  whiptail --title "Conferma" --yesno "$1" 10 60
+  whiptail --title "Confirm" --yesno "$1" 10 60
   return $?
 }
 
 # Show information message
 show_message() {
-  whiptail --title "Informazione" --msgbox "$1" 10 60
+  whiptail --title "Info" --msgbox "$1" 10 60
 }
 
 # Get the necessary packages
