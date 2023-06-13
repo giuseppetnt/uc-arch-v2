@@ -1,6 +1,6 @@
 pkgname=ucarch
 pkgver=1.2
-pkgrel=2
+pkgrel=3
 pkgdesc="System updater and system cleaner"
 arch=('any')
 license=('GPL')
