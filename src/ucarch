@@ -70,7 +70,7 @@ while true; do
     "4" "Show orphaned package" \
     "5" "Delete orphaned package" \
     "6" "Clean cache" \
-    "7" "Software version" \
+    "7" "ucarch version" \
     "8" "Exit" 3>&1 1>&2 2>&3)
 
   case $choice in

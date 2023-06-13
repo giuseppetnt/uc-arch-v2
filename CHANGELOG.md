@@ -9,4 +9,7 @@ Initial release
 ### 2023-06-11 | 1.2-1
 + Full english translation
 
+### 2023-06-12 | 1.2-2
++ Changed from main menu from ~~~Software~~~ to ucarch version
+
 
