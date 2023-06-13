@@ -12,5 +12,6 @@ Initial release
 ### 2023-06-12 | 1.2-2
 + Changed from main menu from ~~~Software~~~ to ucarch version
 + 
++ 
 
 
