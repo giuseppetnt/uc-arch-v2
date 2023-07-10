@@ -11,31 +11,6 @@ show_message() {
   whiptail --title "Info" --msgbox "$1" 10 60
 }
 
-# Get the necessary packages
-get_unnecessary_packages() {
-  # list packages installed
-  all_packages=$(pacman -Qqe)
-
-  # Essential package for arch linux
-  essential_packages=(
-    "base"
-    "linux"
-    "pacman"
-    "glibc"
-  )
-
-  # Search for orphaned packages
-  unnecessary_packages=()
-  for package in $all_packages; do
-    if ! printf '%s\n' "${essential_packages[@]}" | grep -qx "$package"; then
-      unnecessary_packages+=("$package")
-    fi
-  done
-
-  # List orphaned packages
-  echo "${unnecessary_packages[@]}"
-}
-
 # Show ASCII art
 show_ascii_art() {
   # Color of ASCII art
@@ -113,25 +88,24 @@ while true; do
       fi
       ;;
     4)
-      unnecessary_packages_list=$(get_unnecessary_packages)
-      if [ -n "$unnecessary_packages_list" ]; then
-        show_message "List of orphaned package:\n\n$unnecessary_packages_list"
+      orphans=$(pacman -Qtdq)
+      if [ -n "$orphans" ]; then
+        show_message "List of orphaned packages:\n\n$orphans"
       else
-        show_message "No oprhaned package."
+        show_message "No orphaned packages."
       fi
       ;;
     5)
-      if show_confirmation "Delete oprhaned package?"; then
+      if show_confirmation "Delete orphaned packages?"; then
         echo "Deleting orphaned packages..."
-        # remove orphaned
-        orphans=$(pacman -Qdtq)
+        orphans=$(pacman -Qtdq)
         if [ -n "$orphans" ]; then
-            sudo pacman -Rns $orphans
+            sudo pacman -R $orphans
             echo "Cleaning done!"
         else
-            echo "No oprhaned package."
+            echo "No orphaned packages."
         fi
-        show_message "Deleting done."
+        show_message "Deletion done."
       else
         show_message "No action."
       fi
@@ -141,7 +115,7 @@ while true; do
         echo "Cache cleaning..."
         # Cache cleaning
         sudo pacman -Sc
-        show_message "Cache cleaning succeded!"
+        show_message "Cache cleaning succeeded!"
       else
         show_message "Canceling..."
       fi
