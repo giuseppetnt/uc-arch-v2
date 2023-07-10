@@ -1,4 +1,9 @@
 # uc-arch-v2
+### ucarc version 1.3
+What's new:
+
+Removed unused package function;
+Corrected recursive action on dependencies of unused packages.
 
 ### ucarc version 1.2.1
 

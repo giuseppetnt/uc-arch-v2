@@ -15,5 +15,11 @@ Initial release
 ### 2023-06-13 | 1.2-3
 + Exit program when press "cancel" on main menu
 
+### 2023-07-10 | 1.3
++rimosso funzione pacchetti non utili.
++corretta l'azione recursiva sulle dipendenze di pacchetti non utilizzati.
+
+
+
 
 
