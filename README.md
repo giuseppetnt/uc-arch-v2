@@ -1,4 +1,5 @@
-# uc-arch-v2
+# uc-arch-v2  
+___
 ### ucarc version 1.3
 What's new:
 
@@ -16,11 +17,11 @@ Corrected recursive action on dependencies of unused packages.
 ##### The "clean_cache" function checks the cache size, if the size is not zero, it clean the cache. User can select an option by entering the corresponding number. In case of invalid input, an error message is displayed.
 
 
-![alt text](/img/img1.png)
+![alt text](./img/img1.png)
 
-![alt text](/img/img3.png)
+![alt text](./img/img3.png)
 
-![alt text](/img/img2.png)
+![alt text](./img/img2.png)
 
 ## How to compile and install:
 
