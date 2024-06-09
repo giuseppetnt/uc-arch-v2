@@ -18,7 +18,6 @@ show_ascii_art() {
   blue=$(tput setaf 4)
   reset=$(tput sgr0)
 
-
  echo "${green}"
  echo '          _______  _______  _______  _______                    _______'
  echo '|\     /|(  ____ \(  ___  )(  ____ )(  ____ \|\     /||\     /|/ ___   )'
